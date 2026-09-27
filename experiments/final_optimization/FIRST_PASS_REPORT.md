@@ -1,0 +1,6 @@
+# First pass (final day) - see 01_friend_tsv/, 06_address_guard/, 09_distribution_shift/ reports
+1. Friend TSV is not a precision oracle: >=158,579 certain false merges (exclusivity violations), 26% empty S1 vs 5.6% train prior, S3 under-recall. Do not merge.
+2. Test pools are 25% denser per S1 than train; India and France score distributions shift strongly toward the ambiguous band (2.4x / ~3x); US matches the benchmark.
+3. Street-number veto is refuted on US/India labels (12%/9% of true pairs have conflicting numbers); France ambiguous predictions are 61% number-conflicted (unlabeled).
+4. The decision layer (thresholds / margin / conditional rules) can be re-applied to the cached production scores (submission_work/scored, 34.65M rows) in minutes - no 7.5 h re-inference.
+Highest-value next experiments: (1) production replay on held-out TRAIN states with labels + 20% S1 withholding for test density; (2) decision-layer re-optimisation on replay scores, applied to cached test scores; (3) France portal A/B via a France-only decision change; (4) tokenizer-fix + Exp3 retrain full inference only if (1) localises the gap to India matching; (5) friend disagreement only as a stratified review sample.

@@ -1,0 +1,8 @@
+dataset/
+output*/
+submission_work*/
+*.parquet
+*.tsv
+*.zip
+__pycache__/
+*.log
